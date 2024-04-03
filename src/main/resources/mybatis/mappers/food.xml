@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="food">
+
+	<!-- 메뉴판 리스트 -->
+	<select id="select" resultType="FoodVo">
+		<![CDATA[	
+			select *
+			from foodstore_table
+		]]>
+	</select>
+
+	<!-- 포인트 조회 -->
+	<select id="selectpoint" parameterType="string" resultType="int">
+		<![CDATA[	
+			select user_point 
+			from user_table 
+			where user_hp= #{phoneNumber}
+		]]>
+	</select>
+
+	<!-- 포인트 사용 조회 -->
+	<select id="usepoint" parameterType="PointVo" resultType="int">
+		<![CDATA[	
+			select user_point 
+			from user_table 
+			where user_hp= #{phoneNumber} and user_birth=#{birth}
+		]]>
+	</select>
+
+	<!-- 메뉴 주문 -->
+	<insert id="insertOrder" parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=";">
+			insert into food_purchase
+			values (null, #{item.f_r_no}, #{item.f_no})
+		</foreach>
+	</insert>
+
+	<!-- 포인트 수정 -->
+	<update id="update" parameterType="PointVo">
+		<![CDATA[	
+			UPDATE user_table
+			SET user_point = #{point}
+			WHERE user_hp = #{phoneNumber}
+		]]>
+	</update>
+
+	<!-- 사진 등록 담기 -->
+	<insert id="foodInsert" parameterType="FoodVo">
+		<![CDATA[
+			insert into foodstore_table
+			values(null, null, null, #{ filePath }, #{ orgName }, 
+			#{ saveName }, #{ fileSize }, null, null)
+		]]>
+	</insert>
+</mapper>
