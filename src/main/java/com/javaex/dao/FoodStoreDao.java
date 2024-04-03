@@ -1,5 +1,6 @@
 package com.javaex.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,19 @@ public class FoodStoreDao {
 
 	@Autowired
 	private SqlSession sqlSession;
+
+	public int insertRec(String phoneNumber) {
+		System.out.println("FoodStoreDao.insertRec()");
+		int count = sqlSession.insert("food.insertRec", phoneNumber);
+		return count;
+	}
+
+	public void order(FoodVo item, int f_r_no) {
+	    System.out.println("FoodStoreDao.order()");
+	    
+	    sqlSession.insert("food.insertOrder", f_r_no);
+	}
+
 
 	public List<FoodVo> foodSelect() {
 		System.out.println("FoodStoreDao.foodSelect()");
@@ -31,7 +45,7 @@ public class FoodStoreDao {
 
 		return point;
 	}
-	
+
 	public int selectPoint02(Map<String, String> params) {
 		System.out.println("FoodStoreDao.selectPoint02()");
 
@@ -39,7 +53,7 @@ public class FoodStoreDao {
 
 		return point;
 	}
-	
+
 	public int usePoint(Map<String, String> params) {
 		System.out.println("FoodStoreDao.usePoint()");
 
@@ -55,11 +69,6 @@ public class FoodStoreDao {
 		int count = sqlSession.insert("foodInsert", foodVo);
 
 		return count;
-	}
-
-	public void order(FoodVo item) {
-		System.out.println("FoodStoreDao.order()");
-		int result = sqlSession.insert("food.insertOrder", item);
 	}
 
 }

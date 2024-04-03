@@ -21,6 +21,16 @@ public class FoodStoreService {
 	@Autowired
 	private FoodStoreDao foodStoreDao;
 
+	public void exeOrder(List<FoodVo> cartItems, String phoneNumber) {
+		System.out.println("FoodStoreService.exeOrder()");
+		
+		int f_r_no = foodStoreDao.insertRec(phoneNumber);
+		
+		for (FoodVo item : cartItems) {
+			foodStoreDao.order(item, f_r_no);
+		}
+	}
+
 	public List<FoodVo> exeList() {
 		System.out.println("FoodStoreService.exeList()");
 
@@ -100,13 +110,6 @@ public class FoodStoreService {
 		}
 
 		return saveName;
-	}
-
-	public void exeOrder(List<FoodVo> cartItems, String phoneNumber) {
-		System.out.println("FoodStoreService.exeOrder()");
-		for (FoodVo item : cartItems) {
-			foodStoreDao.order(item);
-		}
 	}
 
 	public int exeUserPoint(Map<String, String> params) {

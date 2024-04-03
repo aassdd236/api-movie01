@@ -23,13 +23,24 @@ public class FoodStoreController {
 	@Autowired
 	private FoodStoreService foodStoreService;
 
+	// 주문하기
+	@PostMapping("/api/food/order")
+	public JsonResult order(@RequestBody Map<String, Object> requestData) {
+	    List<FoodVo> cartItems = (List<FoodVo>) requestData.get("cartItems");
+	    String phoneNumber = (String) requestData.get("phoneNumber");
+
+	    System.out.println("FoodStoreController.order()");
+	    foodStoreService.exeOrder(cartItems, phoneNumber);
+	    return JsonResult.success("주문 완료");
+	}
+
+
 	// 메뉴 리스트
 	@GetMapping("/api/food/list")
 	public JsonResult list() {
 		System.out.println("FoodStoreController.list()");
 
 		List<FoodVo> foodList = foodStoreService.exeList();
-		System.out.println(foodList);
 
 		return JsonResult.success(foodList);
 	}
@@ -39,25 +50,15 @@ public class FoodStoreController {
 	public JsonResult point(@RequestParam String phoneNumber) {
 		System.out.println("FoodStoreController.point()");
 		int point = foodStoreService.exePoint(phoneNumber);
-		System.out.println(point);
 		return JsonResult.success(point);
 	}
-	
-	//포인트 조회(폰번호, 생년월일)
+
+	// 포인트 조회(폰번호, 생년월일)
 	@GetMapping("/api/food/point02")
 	public JsonResult pointUse(@RequestParam Map<String, String> params) {
 		System.out.println("FoodStoreController.pointUse()");
 		int point = foodStoreService.exePoint02(params);
-		System.out.println(point);
 		return JsonResult.success(point);
-	}
-
-	// 주문하기
-	@PostMapping("/api/food/order")
-	public JsonResult order(@RequestBody List<FoodVo> cartItems, @RequestParam String phoneNumber) {
-		System.out.println("FoodStoreController.order()");
-		foodStoreService.exeOrder(cartItems, phoneNumber);
-		return JsonResult.success("주문 완료");
 	}
 
 	// 포인트 수정 put
@@ -73,12 +74,10 @@ public class FoodStoreController {
 		int point = Integer.parseInt(pointStr);
 
 		foodStoreService.exeUserPoint(params);
-		
-		System.out.println(params);
-		
-		return JsonResult.success(foodStoreService);
+
+		return JsonResult.success(params);
 	}
-	
+
 	// 주문 정보 리스트
 
 	// db 정보 등록
