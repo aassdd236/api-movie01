@@ -5,6 +5,7 @@ public class PointVo {
 	private int user_no;
 	private String user_hp;
 	private String user_birth;
+	private String user_name;
 	private int user_point;
 	
 	private int f_r_no;
@@ -13,9 +14,32 @@ public class PointVo {
 	private String f_name;
 	private int f_price;
 	
+	private int f_count;
+	
 	public PointVo() {
 		super();
 	}
+
+	
+	public String getUser_name() {
+		return user_name;
+	}
+
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+
+	public int getF_count() {
+		return f_count;
+	}
+
+
+	public void setF_count(int f_count) {
+		this.f_count = f_count;
+	}
+
 
 	public int getUser_no() {
 		return user_no;
@@ -83,10 +107,9 @@ public class PointVo {
 
 	@Override
 	public String toString() {
-		return "PointVo [user_no=" + user_no + ", user_hp=" + user_hp + ", user_birth=" + user_birth + ", user_point="
-				+ user_point + ", f_r_no=" + f_r_no + ", f_p_no=" + f_p_no + ", f_name=" + f_name + ", f_price="
-				+ f_price + "]";
+		return "PointVo [user_no=" + user_no + ", user_hp=" + user_hp + ", user_birth=" + user_birth + ", user_name="
+				+ user_name + ", user_point=" + user_point + ", f_r_no=" + f_r_no + ", f_p_no=" + f_p_no + ", f_name="
+				+ f_name + ", f_price=" + f_price + ", f_count=" + f_count + "]";
 	}
-	
-	
+
 }

@@ -1,6 +1,5 @@
 package com.javaex.dao;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.FoodVo;
+import com.javaex.vo.OrderItemVo;
+import com.javaex.vo.OrderVo;
+import com.javaex.vo.PointVo;
 
 @Repository
 public class FoodStoreDao {
@@ -16,16 +18,18 @@ public class FoodStoreDao {
 	@Autowired
 	private SqlSession sqlSession;
 
-	public int insertRec(String phoneNumber) {
+	public int insertRec(OrderVo orderVo) {
 		System.out.println("FoodStoreDao.insertRec()");
-		int count = sqlSession.insert("food.insertRec", phoneNumber);
+		System.out.println(orderVo);
+		int count = sqlSession.insert("food.insertRec", orderVo);
+		System.out.println(orderVo);
 		return count;
 	}
 
-	public void order(FoodVo item, int f_r_no) {
+	public void order(OrderItemVo orderItem) {
 	    System.out.println("FoodStoreDao.order()");
 	    
-	    sqlSession.insert("food.insertOrder", f_r_no);
+	    sqlSession.insert("food.order", orderItem);
 	}
 
 
@@ -71,4 +75,12 @@ public class FoodStoreDao {
 		return count;
 	}
 
+	public List<PointVo> recSelect(int f_r_no) {
+		System.out.println("FoodStoreDao.recSelect()");
+
+		List<PointVo> recList = sqlSession.selectList("food.selectRec", f_r_no);
+		System.out.println(recList);
+
+		return recList;
+	}
 }

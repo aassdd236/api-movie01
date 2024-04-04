@@ -5,6 +5,8 @@
 		<typeAlias alias="MovieVo" type="com.javaex.vo.MovieVo" />
 		<typeAlias alias="FoodVo" type="com.javaex.vo.FoodVo" />
 		<typeAlias alias="PointVo" type="com.javaex.vo.PointVo" />
+		<typeAlias alias="OrderVo" type="com.javaex.vo.OrderVo" />
+		<typeAlias alias="OrderItemVo" type="com.javaex.vo.OrderItemVo" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/movie.xml" />

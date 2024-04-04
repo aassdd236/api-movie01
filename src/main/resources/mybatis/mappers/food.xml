@@ -5,7 +5,7 @@
 
 
 	<!-- 메뉴 주문 -->
-	<insert id="insertRec" parameterType="string">
+	<insert id="insertRec" parameterType="OrderVo">
 		<![CDATA[	
 		insert into food_receipt
 		values (null,
@@ -14,18 +14,37 @@
 				now());
 		]]>
 		<selectKey keyProperty="f_r_no" resultType="int" order="AFTER">
-		<![CDATA[
+			<![CDATA[
 				select last_insert_id();
 			]]>
 		</selectKey>
 	</insert>
 
-	<insert id="order" parameterType="map">
+	<insert id="order" parameterType="OrderItemVo">
         <![CDATA[ 
             insert into food_purchase
             values (null, #{f_r_no}, #{f_no}, #{f_count})
         ]]>
 	</insert>
+
+	<!-- 영수증 뽑아오기 -->
+	<select id="selectRec" parameterType="int" resultType="PointVo">
+		<![CDATA[	
+				select u.user_point,
+					    u.user_name,
+					    fp.f_r_no,
+					    fp.f_p_no,
+					    fp.f_no,
+					    fp.f_count,
+					    fs.f_name,
+					    fs.f_price
+				from food_purchase fp
+				join food_receipt fr on fp.f_r_no = fr.f_r_no
+				join user_table u on fr.user_no = u.user_no
+				join foodstore_table fs on fp.f_no = fs.f_no
+				where fp.f_r_no = #{f_r_no};
+		]]>
+	</select>
 
 
 	<!-- 메뉴판 리스트 -->

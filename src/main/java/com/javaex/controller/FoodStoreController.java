@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.javaex.service.FoodStoreService;
 import com.javaex.util.JsonResult;
 import com.javaex.vo.FoodVo;
+import com.javaex.vo.OrderVo;
+import com.javaex.vo.PointVo;
 
 @RestController
 public class FoodStoreController {
@@ -25,15 +27,24 @@ public class FoodStoreController {
 
 	// 주문하기
 	@PostMapping("/api/food/order")
-	public JsonResult order(@RequestBody Map<String, Object> requestData) {
-	    List<FoodVo> cartItems = (List<FoodVo>) requestData.get("cartItems");
-	    String phoneNumber = (String) requestData.get("phoneNumber");
-
-	    System.out.println("FoodStoreController.order()");
-	    foodStoreService.exeOrder(cartItems, phoneNumber);
-	    return JsonResult.success("주문 완료");
+	public JsonResult order(@RequestBody OrderVo orderVo) {
+		System.out.println("FoodStoreController.order()");
+		System.out.println("우웩: "+orderVo);
+		
+		foodStoreService.exeOrder(orderVo);
+		
+		return JsonResult.success("주문 완료");
 	}
 
+	// 영수증 뽑기
+	@GetMapping("/api/food/rec")
+	public JsonResult rec(@RequestParam int f_r_no) {
+		System.out.println("FoodStoreController.rec()");
+
+		List<PointVo> recList = foodStoreService.exeRec(f_r_no);
+
+		return JsonResult.success(recList);
+	}
 
 	// 메뉴 리스트
 	@GetMapping("/api/food/list")

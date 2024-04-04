@@ -14,6 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.dao.FoodStoreDao;
 import com.javaex.vo.FoodVo;
+import com.javaex.vo.OrderItemVo;
+import com.javaex.vo.OrderVo;
+import com.javaex.vo.PointVo;
 
 @Service
 public class FoodStoreService {
@@ -21,13 +24,19 @@ public class FoodStoreService {
 	@Autowired
 	private FoodStoreDao foodStoreDao;
 
-	public void exeOrder(List<FoodVo> cartItems, String phoneNumber) {
+
+	public void exeOrder(OrderVo orderVo) {
 		System.out.println("FoodStoreService.exeOrder()");
 		
-		int f_r_no = foodStoreDao.insertRec(phoneNumber);
+		int count= foodStoreDao.insertRec(orderVo);
 		
-		for (FoodVo item : cartItems) {
-			foodStoreDao.order(item, f_r_no);
+		
+		for (OrderItemVo orderItem : orderVo.getOrderItemList()) {
+			int f_r_no = orderVo.getF_r_no();
+			orderItem.setF_r_no(f_r_no);
+			System.out.println(orderItem);
+			
+			foodStoreDao.order(orderItem);
 		}
 	}
 
@@ -119,5 +128,13 @@ public class FoodStoreService {
 		System.out.println(params);
 
 		return point;
+	}
+
+	public List<PointVo> exeRec(int f_r_no) {
+		System.out.println("FoodStoreService.exeRec()");
+
+		List<PointVo> recList = foodStoreDao.recSelect(f_r_no);
+
+		return recList;
 	}
 }
