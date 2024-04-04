@@ -20,9 +20,7 @@ public class FoodStoreDao {
 
 	public int insertRec(OrderVo orderVo) {
 		System.out.println("FoodStoreDao.insertRec()");
-		System.out.println(orderVo);
 		int count = sqlSession.insert("food.insertRec", orderVo);
-		System.out.println(orderVo);
 		return count;
 	}
 
@@ -58,11 +56,10 @@ public class FoodStoreDao {
 		return point;
 	}
 
-	public int usePoint(Map<String, String> params) {
+	public int usePoint(OrderVo orderVo) {
 		System.out.println("FoodStoreDao.usePoint()");
 
-		int point = sqlSession.update("food.update", params);
-		System.out.println(params);
+		int point = sqlSession.update("food.update", orderVo);
 
 		return point;
 	}

@@ -34,10 +34,11 @@ public class FoodStoreService {
 		for (OrderItemVo orderItem : orderVo.getOrderItemList()) {
 			int f_r_no = orderVo.getF_r_no();
 			orderItem.setF_r_no(f_r_no);
-			System.out.println(orderItem);
 			
 			foodStoreDao.order(orderItem);
 		}
+		
+		foodStoreDao.usePoint(orderVo);
 	}
 
 	public List<FoodVo> exeList() {
@@ -121,14 +122,6 @@ public class FoodStoreService {
 		return saveName;
 	}
 
-	public int exeUserPoint(Map<String, String> params) {
-		System.out.println("FoodStoreService.exeUserPoint()");
-		
-		int point = foodStoreDao.usePoint(params);
-		System.out.println(params);
-
-		return point;
-	}
 
 	public List<PointVo> exeRec(int f_r_no) {
 		System.out.println("FoodStoreService.exeRec()");

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,11 +28,12 @@ public class FoodStoreController {
 	@PostMapping("/api/food/order")
 	public JsonResult order(@RequestBody OrderVo orderVo) {
 		System.out.println("FoodStoreController.order()");
-		System.out.println("우웩: "+orderVo);
-		
+
 		foodStoreService.exeOrder(orderVo);
-		
-		return JsonResult.success("주문 완료");
+
+		int f_r_no = orderVo.getF_r_no();
+
+		return JsonResult.success(f_r_no);
 	}
 
 	// 영수증 뽑기
@@ -42,7 +42,7 @@ public class FoodStoreController {
 		System.out.println("FoodStoreController.rec()");
 
 		List<PointVo> recList = foodStoreService.exeRec(f_r_no);
-
+		System.out.println(recList);
 		return JsonResult.success(recList);
 	}
 
@@ -71,25 +71,6 @@ public class FoodStoreController {
 		int point = foodStoreService.exePoint02(params);
 		return JsonResult.success(point);
 	}
-
-	// 포인트 수정 put
-	@PutMapping("/api/food/pointuse")
-	public JsonResult pointUpdate(@RequestBody Map<String, String> params) {
-		System.out.println("FoodStoreController.pointUpdate()");
-
-		String phoneNumber = params.get("phoneNumber");
-		String pointStr = params.get("point");
-		if (pointStr == null) {
-			pointStr = "0";
-		}
-		int point = Integer.parseInt(pointStr);
-
-		foodStoreService.exeUserPoint(params);
-
-		return JsonResult.success(params);
-	}
-
-	// 주문 정보 리스트
 
 	// db 정보 등록
 	@PostMapping("/api/food/attach")

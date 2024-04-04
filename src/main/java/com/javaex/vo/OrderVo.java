@@ -7,12 +7,20 @@ public class OrderVo {
 	private int f_r_no;
 	private String phoneNumber;
 	private List<OrderItemVo> orderItemList;
+	private int user_point;
 	
 	public OrderVo() {
 		super();
 	}
 	
-	
+	public int getUser_point() {
+		return user_point;
+	}
+
+	public void setUser_point(int user_point) {
+		this.user_point = user_point;
+	}
+
 	public int getF_r_no() {
 		return f_r_no;
 	}
@@ -34,14 +42,10 @@ public class OrderVo {
 		this.orderItemList = orderItemList;
 	}
 
-
 	@Override
 	public String toString() {
-		return "OrderVo [f_r_no=" + f_r_no + ", phoneNumber=" + phoneNumber + ", orderItemList=" + orderItemList + "]";
+		return "OrderVo [f_r_no=" + f_r_no + ", phoneNumber=" + phoneNumber + ", orderItemList=" + orderItemList
+				+ ", user_point=" + user_point + "]";
 	}
-	
-	
-	
-	
-	
+
 }

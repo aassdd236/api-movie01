@@ -76,10 +76,10 @@
 
 
 	<!-- 포인트 수정 -->
-	<update id="update" parameterType="PointVo">
+	<update id="update" parameterType="OrderVo">
 		<![CDATA[	
 			UPDATE user_table
-			SET user_point = #{point}
+			SET user_point = #{user_point}
 			WHERE user_hp = #{phoneNumber}
 		]]>
 	</update>
