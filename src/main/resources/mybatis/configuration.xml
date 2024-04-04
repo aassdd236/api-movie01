@@ -7,9 +7,11 @@
 		<typeAlias alias="PointVo" type="com.javaex.vo.PointVo" />
 		<typeAlias alias="OrderVo" type="com.javaex.vo.OrderVo" />
 		<typeAlias alias="OrderItemVo" type="com.javaex.vo.OrderItemVo" />
+		<typeAlias alias="UserVo" type="com.javaex.vo.UserVo" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/movie.xml" />
 		<mapper resource="mybatis/mappers/food.xml" />
+		<mapper resource="mybatis/mappers/user.xml" />
 	</mappers>
 </configuration>
